@@ -1,0 +1,25 @@
+---
+
+
+//  ------------------------------------------------------------------------------
+//  ----------  /01/curso-astro-demo/src/components/HeaderButton.astro  ----------
+//  ------------------------------------------------------------------------------
+
+interface Props {
+    href: string;
+    class: string;
+}
+const { href, class: className } = Astro.props;
+---
+
+<a  class=`flex items-center cursor-pointer 
+         gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed 
+         bg-button text-white shadow-button hover:shadow-button-hover hover:scale-110 
+         px-10 py-3 text-lg font-bold md:text-xl rounded-xl ${className}`
+    href={href}
+    
+>
+  <slot name="before-text" />
+  <slot>  Un texto por defecto </slot>
+  <slot name="after-text" />
+</a>
