@@ -9,12 +9,12 @@ import { getLatestLaunches, getLaunchById } from "@/services/spacex";
 import type { GetStaticPaths } from "astro";
 import Layout from "@/layouts/Layout.astro";
 
-export const prerender = false;     //  funcionaria en server y en astro.config.mjs utilizamos  --     output: 'hybrid'
+//export const prerender = false;     //  funcionaria en server y en astro.config.mjs utilizamos  --     output: 'hybrid'
 
 //  -----  Cookies  -----
-if(Astro.cookies.get('user')) {
-    console.log('user logged')
-}
+// if(Astro.cookies.get('user')) {
+//     console.log('user logged')
+// }
 
 
 
@@ -25,19 +25,19 @@ let launch = null;
 if(id) launch = await getLaunchById({ id })
 
 
-//  -----  contenido statico  -----
-// export const getStaticPaths = ( async () => {
+//  -----  contenido statico  ----- 
+export const getStaticPaths = ( async () => {
     
-//     //  -----  Llamar a una API externa para saber todas los ids que debes generar  -----
-//     const launches = await getLatestLaunches();
+    //  -----  Llamar a una API externa para saber todas los ids que debes generar  -----
+    const launches = await getLatestLaunches();
     
-//     return launches.map( launch => (
-//         { 
-//             params: {id: launch.id }, 
-//         }
-//     ));
+    return launches.map( launch => (
+        { 
+            params: {id: launch.id }, 
+        }
+    ));
             
-// }) satisfies GetStaticPaths;
+}) satisfies GetStaticPaths;
 
 
 ---
@@ -55,20 +55,20 @@ if(id) launch = await getLaunchById({ id })
         <p class="text-lg"> {launch?.details} </p>
     </article>
 
-    <br> <br> <br>
+    <br/> <br/> <br/>
     <!-- <a class="text-2xl text-zinc-400 font-semibold mr-2 px-2.5 py-0.5 rounded" href="/"> Go to Launches </a> -->
     <a href="/"> <h3 class=" my-10 text-1xl text-center"> GO LAUNCHES </h3> </a> 
-
-    <style>
-
-        a:hover {
-            color: #7d38ec;
-            font-size: 36px;
-            font-weight: bold;
-          }
-        
-    </style>
-
+    
 </Layout>
 
+
+<style>
+
+    a:hover {
+        color: #7d38ec;
+        font-size: 36px;
+        font-weight: bold;
+      };
+    
+</style>
 
